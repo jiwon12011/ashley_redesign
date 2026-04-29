@@ -28,10 +28,46 @@ if (menuToggle && siteNav) {
 
 paginationButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    const target = document.querySelector(button.dataset.target);
+
     paginationButtons.forEach((item) => item.classList.remove("is-active"));
     button.classList.add("is-active");
+
+    target?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   });
 });
+
+const sectionButtons = Array.from(paginationButtons).filter((button) => button.dataset.target);
+const sections = sectionButtons
+  .map((button) => document.querySelector(button.dataset.target))
+  .filter(Boolean);
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    const visibleEntry = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+    if (!visibleEntry) {
+      return;
+    }
+
+    sectionButtons.forEach((button) => {
+      button.classList.toggle(
+        "is-active",
+        button.dataset.target === `#${visibleEntry.target.id}`,
+      );
+    });
+  },
+  {
+    threshold: [0.34, 0.5, 0.66],
+  },
+);
+
+sections.forEach((section) => sectionObserver.observe(section));
 
 const revealElements = revealTargets.flatMap((selector) =>
   Array.from(document.querySelectorAll(selector)),

@@ -279,17 +279,19 @@ img {
 }
 
 .hero__side-ui {
-  position: absolute;
+  position: fixed;
   right: 66px;
   top: 50%;
-  z-index: 1;
+  z-index: 40;
   transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .hero-pagination {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  pointer-events: auto;
 }
 
 .hero-pagination button {
@@ -300,6 +302,14 @@ img {
   font-size: 1.95rem;
   cursor: pointer;
   padding: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.34);
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.hero-pagination button:hover,
+.hero-pagination button:focus-visible {
+  transform: translateX(-3px);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .hero-pagination button::after {
@@ -474,12 +484,22 @@ img {
   align-items: center;
 }
 
+.brand-story__copy {
+  display: grid;
+  align-content: center;
+  gap: 28px;
+}
+
+.brand-story__copy .section__eyebrow {
+  margin: 0 0 6px;
+}
+
 .brand-story__copy h2 {
-  margin: 0 0 18px;
+  margin: 0;
   font-family: var(--font-serif);
   font-size: clamp(2.8rem, 4vw, 4.8rem);
-  line-height: 1.24;
-  letter-spacing: 0.01em;
+  line-height: 1.36;
+  letter-spacing: 0.06em;
   text-wrap: balance;
 }
 
@@ -487,8 +507,13 @@ img {
   margin: 0;
   color: rgba(247, 240, 232, 0.84);
   font-size: 1.04rem;
-  line-height: 1.72;
+  line-height: 1.95;
   max-width: 28rem;
+}
+
+.brand-story__copy .text-link {
+  width: fit-content;
+  margin-top: 4px;
 }
 
 .brand-story__gallery {
@@ -923,15 +948,22 @@ img {
   }
 
   .hero__side-ui {
-    position: static;
+    right: 18px;
+    top: auto;
+    bottom: 22px;
     transform: none;
-    width: var(--container);
-    margin: 26px auto 0;
+    width: auto;
+    margin: 0;
   }
 
   .hero-pagination {
     flex-direction: row;
     justify-content: flex-end;
+    gap: 14px;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(12, 10, 9, 0.42);
+    backdrop-filter: blur(8px);
   }
 
   .event-grid {
@@ -993,7 +1025,8 @@ img {
   }
 
   .brand-story__copy h2 {
-    line-height: 1.18;
+    line-height: 1.24;
+    letter-spacing: 0.03em;
   }
 
   .button {
