@@ -1,6 +1,10 @@
 const menuToggle = document.querySelector("[data-menu-toggle]");
 const siteNav = document.querySelector("[data-nav]");
 const paginationButtons = document.querySelectorAll("[data-pagination] button");
+const brandGallery = document.querySelector("[data-brand-gallery]");
+const brandCards = document.querySelectorAll("[data-brand-slide]");
+const brandPagerButtons = document.querySelectorAll("[data-brand-page]");
+let brandSlideTimer;
 const revealTargets = [
   ".section__heading",
   ".event-card",
@@ -78,6 +82,57 @@ const sectionObserver = new IntersectionObserver(
 );
 
 sections.forEach((section) => sectionObserver.observe(section));
+
+const getActiveBrandPage = () =>
+  Array.from(brandPagerButtons).find((button) => button.classList.contains("is-active"))
+    ?.dataset.brandPage ?? "0";
+
+const setBrandSlide = (page) => {
+  if (!brandGallery || !brandCards.length) {
+    return;
+  }
+
+  brandGallery.classList.add("is-changing");
+
+  window.setTimeout(() => {
+    brandCards.forEach((card) => {
+      const isVisible = card.dataset.brandSlide === page;
+      card.hidden = !isVisible;
+      card.classList.toggle("is-visible", isVisible);
+    });
+
+    brandPagerButtons.forEach((button) => {
+      const isActive = button.dataset.brandPage === page;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-current", String(isActive));
+    });
+
+    brandGallery.classList.remove("is-changing");
+  }, 180);
+};
+
+const startBrandAutoSlide = () => {
+  if (brandPagerButtons.length < 2) {
+    return;
+  }
+
+  window.clearInterval(brandSlideTimer);
+  brandSlideTimer = window.setInterval(() => {
+    const pages = Array.from(brandPagerButtons).map((button) => button.dataset.brandPage);
+    const activeIndex = pages.indexOf(getActiveBrandPage());
+    const nextPage = pages[(activeIndex + 1) % pages.length];
+    setBrandSlide(nextPage);
+  }, 7000);
+};
+
+brandPagerButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setBrandSlide(button.dataset.brandPage);
+    startBrandAutoSlide();
+  });
+});
+
+startBrandAutoSlide();
 
 const revealElements = revealTargets.flatMap((selector) =>
   Array.from(document.querySelectorAll(selector)),
