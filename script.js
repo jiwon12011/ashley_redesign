@@ -9,6 +9,16 @@ const revealTargets = [
   ".notice__intro",
   ".feature-card",
   ".notice-item",
+  ".sub-hero__content",
+  ".menu-dish",
+  ".price-band article",
+  ".event-detail-card",
+  ".store-search",
+  ".store-card",
+  ".brand-values__intro",
+  ".brand-values__grid article",
+  ".reservation-form",
+  ".reservation-info article",
 ];
 
 if (menuToggle && siteNav) {

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MENU | ASHLEY</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell subpage">
+      <header class="site-header site-header--solid">
+        <a class="brand-mark" href="./index.html" aria-label="Ashley home">
+          <span class="brand-mark__title">ASHLEY</span>
+          <span class="brand-mark__sub">American Grill &amp; Salad</span>
+        </a>
+
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span class="sr-only">메뉴 열기</span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" data-nav>
+          <a class="is-current" href="./menu.html">MENU</a>
+          <a href="./event.html">EVENT</a>
+          <a href="./store.html">STORE</a>
+          <a href="./brand.html">BRAND</a>
+          <a href="./reservation.html">RESERVATION</a>
+        </nav>
+
+        <div class="auth-links">
+          <a href="#">로그인</a>
+          <span>|</span>
+          <a href="#">회원가입</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="sub-hero sub-hero--menu">
+          <div class="sub-hero__overlay"></div>
+          <div class="sub-hero__content">
+            <p class="section__eyebrow">MENU</p>
+            <h1>오늘의 기분까지<br />채우는 다이닝</h1>
+            <p>그릴, 파스타, 샐러드, 디저트까지 한 자리에서 즐기는 애슐리의 시즌 메뉴를 만나보세요.</p>
+          </div>
+        </section>
+
+        <section class="section section--light menu-page">
+          <div class="section__heading">
+            <div>
+              <h2>Season Picks</h2>
+              <p>신선한 재료와 따뜻한 조리감이 살아있는 대표 메뉴입니다.</p>
+            </div>
+          </div>
+
+          <div class="menu-category-grid">
+            <article class="menu-dish">
+              <img src="./assets/hero-tomato.png" alt="토마토 시즌 메뉴" />
+              <div>
+                <span>SEASON</span>
+                <h3>토마토 러버스 테이블</h3>
+                <p>잘 익은 토마토의 산뜻함을 파스타, 그릴, 샐러드로 다채롭게 풀어낸 시즌 라인업.</p>
+              </div>
+            </article>
+            <article class="menu-dish">
+              <img src="./assets/event-steak-unified.png" alt="그릴 스테이크 메뉴" />
+              <div>
+                <span>GRILL</span>
+                <h3>시그니처 그릴 스테이크</h3>
+                <p>불향과 육즙을 살린 스테이크를 샐러드바 메뉴와 함께 즐기는 애슐리 대표 플레이트.</p>
+              </div>
+            </article>
+            <article class="menu-dish">
+              <img src="./assets/brand-salad.png" alt="샐러드 메뉴" />
+              <div>
+                <span>SALAD</span>
+                <h3>프레시 마켓 샐러드</h3>
+                <p>아삭한 채소, 제철 과일, 고소한 토핑을 원하는 조합으로 완성하는 신선한 한 접시.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="price-band">
+            <article>
+              <span>WEEKDAY LUNCH</span>
+              <strong>19,900</strong>
+              <p>평일 점심을 위한 산뜻한 구성</p>
+            </article>
+            <article>
+              <span>DINNER</span>
+              <strong>25,900</strong>
+              <p>그릴과 디저트를 더 풍성하게</p>
+            </article>
+            <article>
+              <span>WEEKEND</span>
+              <strong>27,900</strong>
+              <p>가족 모임에 어울리는 풀 라인업</p>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="site-footer__top">
+          <a class="brand-mark brand-mark--footer" href="./index.html">
+            <span class="brand-mark__title">ASHLEY</span>
+            <span class="brand-mark__sub">American Grill &amp; Salad</span>
+          </a>
+          <nav class="footer-links">
+            <a href="./brand.html">회사소개</a>
+            <a href="#">이용약관</a>
+            <a href="#">개인정보처리방침</a>
+            <a href="./store.html">고객센터</a>
+            <a href="./reservation.html">예약문의</a>
+          </nav>
+        </div>
+        <div class="site-footer__bottom">
+          <div class="company-meta">
+            <p>(주)이랜드이츠 애슐리 | 대표이사 : 문성수 | 사업자등록번호 : 220-81-62515</p>
+            <p>서울시 강남구 양재로 100길 12 애슐리 | 고객센터 1577-0000</p>
+            <p>Copyright © ElandEats. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
