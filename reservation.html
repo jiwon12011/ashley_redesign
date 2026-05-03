@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RESERVATION | ASHLEY</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260503e" />
   </head>
   <body>
     <div class="page-shell subpage">
@@ -26,12 +26,15 @@
         </section>
 
         <section class="section section--light reservation-page">
-          <form class="reservation-form">
+          <form class="reservation-form" data-reservation-form>
             <label><span>매장</span><select><option>애슐리퀸즈 강남점</option><option>애슐리퀸즈 잠실점</option><option>애슐리퀸즈 분당점</option></select></label>
             <label><span>날짜</span><input type="date" /></label>
             <label><span>시간</span><select><option>12:00</option><option>13:30</option><option>18:00</option><option>19:30</option></select></label>
             <label><span>인원</span><input type="number" min="1" max="12" value="4" /></label>
-            <button class="button button--primary" type="button"><span>예약 확인</span><strong aria-hidden="true">→</strong></button>
+            <button class="button button--primary" type="submit"><span>예약 확인</span><strong aria-hidden="true">→</strong></button>
+            <p class="reservation-form__message" data-reservation-message aria-live="polite" tabindex="-1" hidden>
+              예약 요청이 확인되었습니다. 선택하신 매장과 일정으로 방문 전 안내를 도와드릴게요.
+            </p>
           </form>
 
           <div class="reservation-info">
@@ -47,6 +50,6 @@
         <div class="site-footer__bottom"><div class="company-meta"><p>(주)이랜드이츠 애슐리 | 대표이사 : 문성수 | 사업자등록번호 : 220-81-62515</p><p>서울시 강남구 양재로 100길 12 애슐리 | 고객센터 1577-0000</p><p>Copyright © ElandEats. All rights reserved.</p></div></div>
       </footer>
     </div>
-    <script src="./script.js"></script>
+    <script src="./script.js?v=20260503e"></script>
   </body>
 </html>

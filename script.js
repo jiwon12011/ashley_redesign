@@ -1,9 +1,18 @@
 const menuToggle = document.querySelector("[data-menu-toggle]");
+const menuToggleLabel = menuToggle?.querySelector(".sr-only");
 const siteNav = document.querySelector("[data-nav]");
 const paginationButtons = document.querySelectorAll("[data-pagination] button");
 const brandGallery = document.querySelector("[data-brand-gallery]");
 const brandCards = document.querySelectorAll("[data-brand-slide]");
 const brandPagerButtons = document.querySelectorAll("[data-brand-page]");
+const noticeToggleButtons = document.querySelectorAll("[data-notice-toggle]");
+const reservationForm = document.querySelector("[data-reservation-form]");
+const reservationMessage = document.querySelector("[data-reservation-message]");
+const familySite = document.querySelector("[data-family-site]");
+const familyToggle = document.querySelector("[data-family-toggle]");
+const familyMenu = document.querySelector("[data-family-menu]");
+const familyCurrent = document.querySelector("[data-family-current]");
+const familyOptions = document.querySelectorAll("[data-family-option]");
 let brandSlideTimer;
 const revealTargets = [
   ".section__heading",
@@ -26,16 +35,23 @@ const revealTargets = [
 ];
 
 if (menuToggle && siteNav) {
+  const setMenuState = (isOpen) => {
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    siteNav.classList.toggle("is-open", isOpen);
+
+    if (menuToggleLabel) {
+      menuToggleLabel.textContent = isOpen ? "메뉴 닫기" : "메뉴 열기";
+    }
+  };
+
   menuToggle.addEventListener("click", () => {
     const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
-    menuToggle.setAttribute("aria-expanded", String(!isExpanded));
-    siteNav.classList.toggle("is-open", !isExpanded);
+    setMenuState(!isExpanded);
   });
 
   siteNav.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      menuToggle.setAttribute("aria-expanded", "false");
-      siteNav.classList.remove("is-open");
+      setMenuState(false);
     });
   });
 }
@@ -133,6 +149,66 @@ brandPagerButtons.forEach((button) => {
 });
 
 startBrandAutoSlide();
+
+noticeToggleButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const noticeItem = button.closest(".notice-item");
+    const detail = noticeItem?.querySelector(".notice-item__detail");
+
+    if (!noticeItem || !detail) {
+      return;
+    }
+
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!isExpanded));
+    button.setAttribute("aria-label", isExpanded ? "공지 펼치기" : "공지 접기");
+    button.textContent = isExpanded ? "+" : "−";
+    noticeItem.classList.toggle("is-open", !isExpanded);
+    detail.hidden = isExpanded;
+  });
+});
+
+if (reservationForm && reservationMessage) {
+  reservationForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    reservationMessage.hidden = false;
+    reservationMessage.focus?.();
+  });
+}
+
+if (familySite && familyToggle && familyMenu && familyCurrent) {
+  const setFamilyMenuState = (isOpen) => {
+    familyToggle.setAttribute("aria-expanded", String(isOpen));
+    familyMenu.hidden = !isOpen;
+    familySite.classList.toggle("is-open", isOpen);
+  };
+
+  familyToggle.addEventListener("click", () => {
+    const isExpanded = familyToggle.getAttribute("aria-expanded") === "true";
+    setFamilyMenuState(!isExpanded);
+  });
+
+  familyOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      familyCurrent.textContent = option.textContent;
+      familyOptions.forEach((item) => item.setAttribute("aria-selected", "false"));
+      option.setAttribute("aria-selected", "true");
+      setFamilyMenuState(false);
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!familySite.contains(event.target)) {
+      setFamilyMenuState(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setFamilyMenuState(false);
+    }
+  });
+}
 
 const revealElements = revealTargets.flatMap((selector) =>
   Array.from(document.querySelectorAll(selector)),

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ASHLEY | American Grill &amp; Salad</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260503e" />
   </head>
   <body>
     <div class="page-shell">
@@ -197,19 +197,28 @@
               <span class="notice-item__tag">NEW</span>
               <a href="#">애슐리 23주년 고객 감사제 안내</a>
               <time datetime="2025-04-16">2025.04.16</time>
-              <button type="button" aria-label="공지 펼치기">+</button>
+              <button type="button" aria-label="공지 펼치기" aria-expanded="false" data-notice-toggle>+</button>
+              <p class="notice-item__detail" hidden>
+                23주년을 맞아 스테이크 메뉴와 시즌 혜택을 함께 즐길 수 있는 고객 감사 프로모션을 진행합니다.
+              </p>
             </article>
             <article class="notice-item">
               <span class="notice-item__tag">NEW</span>
               <a href="#">애슐리 봄 시즌 신메뉴 출시</a>
               <time datetime="2025-03-25">2025.03.25</time>
-              <button type="button" aria-label="공지 펼치기">+</button>
+              <button type="button" aria-label="공지 펼치기" aria-expanded="false" data-notice-toggle>+</button>
+              <p class="notice-item__detail" hidden>
+                봄 재료를 활용한 샐러드, 그릴, 디저트 라인업을 전국 애슐리퀸즈 매장에서 순차적으로 선보입니다.
+              </p>
             </article>
             <article class="notice-item">
               <span class="notice-item__tag">NEW</span>
               <a href="#">애슐리 이용약관 변경 안내</a>
               <time datetime="2025-03-18">2025.03.18</time>
-              <button type="button" aria-label="공지 펼치기">+</button>
+              <button type="button" aria-label="공지 펼치기" aria-expanded="false" data-notice-toggle>+</button>
+              <p class="notice-item__detail" hidden>
+                서비스 이용 정책과 개인정보 안내 문구가 일부 개정되어 방문 전 주요 변경 사항을 확인하실 수 있습니다.
+              </p>
             </article>
           </div>
         </section>
@@ -241,19 +250,29 @@
             <p>Copyright © ElandEats. All rights reserved.</p>
           </div>
 
-          <label class="family-site">
-            <span>FAMILY SITE</span>
-            <select aria-label="family site">
-              <option>사이트 선택</option>
-              <option>이랜드이츠</option>
-              <option>애슐리퀸즈</option>
-              <option>로운</option>
-            </select>
-          </label>
+          <div class="family-site" data-family-site>
+            <span id="family-site-label">FAMILY SITE</span>
+            <button
+              class="family-site__button"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-labelledby="family-site-label family-site-current"
+              data-family-toggle
+            >
+              <span id="family-site-current" data-family-current>사이트 선택</span>
+              <span aria-hidden="true">⌄</span>
+            </button>
+            <div class="family-site__menu" role="listbox" aria-labelledby="family-site-label" data-family-menu hidden>
+              <button type="button" role="option" data-family-option>이랜드이츠</button>
+              <button type="button" role="option" data-family-option>애슐리퀸즈</button>
+              <button type="button" role="option" data-family-option>로운</button>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="./script.js?v=20260503e"></script>
   </body>
 </html>
