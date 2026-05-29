@@ -90,10 +90,10 @@ img {
   grid-template-columns: auto 1fr;
   gap: 28px;
   align-items: center;
-  height: 88px;
+  height: 82px;
   padding: 0 calc((100vw - var(--container)) / 2);
   width: 100%;
-  background: linear-gradient(180deg, rgba(13, 12, 11, 0.88), rgba(13, 12, 11, 0.58));
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.82), rgba(10, 10, 10, 0.5));
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   transition:
@@ -112,8 +112,8 @@ img {
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  width: 154px;
-  min-width: 154px;
+  width: 136px;
+  min-width: 136px;
 }
 
 .brand-mark img {
@@ -124,7 +124,7 @@ img {
 .site-nav {
   display: flex;
   justify-content: flex-end;
-  gap: 28px;
+  gap: 30px;
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0;
@@ -139,7 +139,7 @@ img {
 
 .site-nav a {
   position: relative;
-  padding: 34px 0 32px;
+  padding: 31px 0 28px;
   color: rgba(255, 255, 255, 0.78);
 }
 
@@ -1283,7 +1283,7 @@ img {
   display: grid;
   align-items: center;
   min-height: 620px;
-  padding: 124px calc((100vw - var(--container)) / 2) 72px;
+  padding: 118px calc((100vw - var(--container)) / 2) 72px;
   overflow: hidden;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1328,7 +1328,6 @@ img {
   position: relative;
   z-index: 1;
   max-width: 690px;
-  padding-top: 36px;
 }
 
 .sub-hero__content h1 {
@@ -1345,7 +1344,7 @@ img {
 
 .sub-hero__content p:last-child {
   max-width: 600px;
-  margin: 24px 0 0;
+  margin: 30px 0 0;
   color: rgba(248, 243, 234, 0.84);
   font-size: 1.06rem;
   line-height: 1.85;
@@ -1776,40 +1775,9 @@ img {
   color: #d94832;
 }
 
-.page-shell:not(.subpage) .site-header {
-  height: 82px;
-  background: linear-gradient(180deg, rgba(10, 10, 10, 0.82), rgba(10, 10, 10, 0.5));
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-.page-shell:not(.subpage) .brand-mark {
-  width: 136px;
-  min-width: 136px;
-}
-
-.page-shell:not(.subpage) .site-nav {
-  gap: 30px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-}
-
-.page-shell:not(.subpage) .site-nav a {
-  padding: 31px 0 28px;
-  border-radius: 0;
-  color: rgba(255, 255, 255, 0.76);
-}
-
-.page-shell:not(.subpage) .site-nav a::after {
-  display: block;
-}
-
-.page-shell:not(.subpage) .site-nav a:hover,
-.page-shell:not(.subpage) .site-nav a:focus-visible {
-  color: #fff;
-  background: transparent;
-}
+/* Header, logo and nav now share one spec across home and subpages (see the
+   base .site-header / .brand-mark / .site-nav rules), so no home-only overrides
+   are needed here — only the hero below differs by page type. */
 
 .page-shell:not(.subpage) .hero__side-ui {
   display: none;
