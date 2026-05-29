@@ -1684,6 +1684,146 @@ img {
   }
 }
 
+.page-shell:not(.subpage) .section--light {
+  background: #f5f2eb;
+}
+
+.page-shell:not(.subpage) .section__eyebrow {
+  color: #d94832;
+}
+
+.page-shell:not(.subpage) .hero-copy h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(4.3rem, 8vw, 7.4rem);
+  line-height: 0.88;
+  font-weight: 900;
+}
+
+.page-shell:not(.subpage) .hero-copy__description {
+  max-width: 560px;
+  font-size: 1.14rem;
+  font-weight: 800;
+}
+
+.section__heading--modern {
+  align-items: start;
+  margin-bottom: 34px;
+}
+
+.section__heading--modern h2,
+.signature-menu--modern .signature-menu__copy h2,
+.page-shell:not(.subpage) .brand-story__copy h2,
+.page-shell:not(.subpage) .benefit-teaser h2,
+.page-shell:not(.subpage) .notice h2 {
+  font-family: var(--font-sans);
+  font-size: clamp(2.65rem, 5vw, 5.25rem);
+  line-height: 0.96;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.section__heading--modern p {
+  max-width: 42rem;
+  font-size: 1.02rem;
+}
+
+.home-panel {
+  padding-top: 78px;
+  padding-bottom: 78px;
+  background:
+    linear-gradient(180deg, #f7f4ee 0%, #f0ece4 100%);
+}
+
+.home-panel .visit-flow__grid {
+  gap: 10px;
+}
+
+.home-panel .flow-card {
+  min-height: 250px;
+  padding: 28px;
+  border-color: rgba(32, 26, 23, 0.1);
+  background: #fffaf2;
+  box-shadow: none;
+}
+
+.home-panel .flow-card:nth-child(2) {
+  background: #fffaf2;
+}
+
+.home-panel .flow-card--accent {
+  background:
+    linear-gradient(180deg, rgba(17, 17, 17, 0.18), rgba(17, 17, 17, 0.92)),
+    url("./assets/subpage-reservation-hero.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.home-panel .flow-card h3 {
+  font-size: 1.72rem;
+  font-weight: 900;
+}
+
+.events--modern {
+  padding-top: 92px;
+  padding-bottom: 110px;
+  background: #f5f2eb;
+}
+
+.events--modern .event-grid {
+  grid-template-columns: minmax(390px, 1.2fr) repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 304px;
+  gap: 12px;
+}
+
+.events--modern .event-card {
+  border: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.events--modern .event-card:hover,
+.events--modern .event-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(24, 18, 14, 0.12);
+}
+
+.events--modern .event-card--hero-banner {
+  background: #f4ead6;
+}
+
+.events--modern .event-card--hero-banner img {
+  padding: 0;
+  object-fit: contain;
+  object-position: center center;
+  background: transparent;
+}
+
+.signature-menu--modern {
+  grid-template-columns: minmax(360px, 1fr) minmax(0, 0.9fr);
+  background: #111;
+}
+
+.signature-menu--modern .signature-menu__media {
+  min-height: 620px;
+  border: 0;
+  box-shadow: none;
+}
+
+.signature-menu--modern .signature-menu__copy {
+  max-width: 560px;
+  align-content: center;
+}
+
+.signature-menu--modern .signature-menu__list article {
+  min-height: 108px;
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.075);
+}
+
+.page-shell:not(.subpage) .benefit-teaser {
+  background: #fffaf2;
+}
+
 .button:focus-visible,
 .menu-toggle:focus-visible,
 .hero-pagination button:focus-visible,
