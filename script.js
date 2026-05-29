@@ -299,36 +299,73 @@ if (siteHeader) {
 }
 
 // GSAP is a progressive enhancement layer only. Content visibility is owned by
-// the CSS reveal + IntersectionObserver above, so a missing/blocked GSAP CDN or
-// a ScrollTrigger that never fires can never leave content stuck invisible.
-const initGsapMotion = () => {
-  if (prefersReducedMotion || !window.gsap) {
-    return;
-  }
+// the CSS reveal + IntersectionObserver above, so a missing/blocked GSAP CDN can
+// never leave content stuck invisible. Two rules keep it safe:
+//  - intro animations are TIME-based (a .from timeline always plays to its end),
+//    never scroll-gated, so nothing can freeze in its hidden start state;
+//  - scroll effects only ever drive parallax/decoration, never opacity of copy.
+const gsapReady = !prefersReducedMotion && !!window.gsap;
 
+// Hero intro choreography. Run synchronously (script is at end of <body>, so the
+// hero markup and GSAP are already parsed) and add `has-gsap` before first paint
+// so the CSS fallback keyframes stand down — avoiding a double-animation flash.
+if (gsapReady) {
+  const gsap = window.gsap;
+  document.documentElement.classList.add("has-gsap");
+
+  gsap
+    .timeline({
+      defaults: { ease: "power3.out" },
+      // Strip the inline styles once played so nothing lingers in a hidden state
+      // and later hover/transition styles are unaffected.
+      onComplete() {
+        gsap.set(".hero-copy > *, .hero-pagination, .scroll-indicator", { clearProps: "all" });
+      },
+    })
+    .from(".hero-copy > *", { y: 42, opacity: 0, duration: 0.85, stagger: 0.09 })
+    .from(".hero-pagination", { x: 28, opacity: 0, duration: 0.6 }, "-=0.5")
+    .from(".scroll-indicator", { y: -12, opacity: 0, duration: 0.55 }, "-=0.35");
+}
+
+// Scroll-driven effects need final layout, so wait for load (and image decode).
+const initScrollEffects = () => {
   const gsap = window.gsap;
   const scrollTrigger = window.ScrollTrigger;
 
-  document.documentElement.classList.add("has-gsap");
-
-  if (!scrollTrigger) {
+  if (!gsapReady || !scrollTrigger) {
     return;
   }
 
   gsap.registerPlugin(scrollTrigger);
 
-  // Depth: the hero (a full-bleed cover background) drifts gently as it scrolls
-  // away. Content imagery is intentionally NOT scaled — upscaling a raster image
-  // softens and crops it, so event/signature/brand photos stay pixel-crisp.
+  // Depth: full-bleed cover backgrounds drift/scale gently as they scroll past.
+  // Content imagery is intentionally NOT scaled — upscaling a raster image softens
+  // and crops it, so event/signature/brand photos stay pixel-crisp.
   gsap.to(".hero__image", {
     yPercent: 8,
     scale: 1.05,
     ease: "none",
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true },
+  });
+
+  gsap.to(".brand-story__backdrop img", {
+    yPercent: 12,
+    scale: 1.06,
+    ease: "none",
+    scrollTrigger: { trigger: ".brand-story", start: "top bottom", end: "bottom top", scrub: true },
+  });
+
+  // Thin scroll-progress bar across the very top of the page.
+  const progressBar = document.createElement("div");
+  progressBar.className = "scroll-progress";
+  document.body.appendChild(progressBar);
+  gsap.to(progressBar, {
+    scaleX: 1,
+    ease: "none",
     scrollTrigger: {
-      trigger: ".hero",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
+      start: 0,
+      end: () => document.documentElement.scrollHeight - window.innerHeight,
+      scrub: 0.3,
     },
   });
 
@@ -336,4 +373,4 @@ const initGsapMotion = () => {
   window.setTimeout(() => scrollTrigger.refresh(), 400);
 };
 
-window.addEventListener("load", initGsapMotion);
+window.addEventListener("load", initScrollEffects);
