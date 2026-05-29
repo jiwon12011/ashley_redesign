@@ -29,10 +29,8 @@ const revealTargets = [
   ".menu-dish",
   ".price-band article",
   ".event-detail-card",
-  ".benefit-card",
   ".membership-ladder__intro",
   ".membership-ladder__tiers article",
-  ".benefit-cta",
   ".store-search",
   ".store-card",
   ".brand-values__intro",
@@ -268,7 +266,7 @@ const initGsapMotion = () => {
     .from(".scroll-indicator", { y: -10, opacity: 0, duration: 0.55 }, "-=0.28");
 
   if (scrollTrigger) {
-    gsap.utils.toArray(".section__heading--modern, .benefit-teaser, .notice").forEach((element) => {
+    gsap.utils.toArray(".section__heading--modern, .notice").forEach((element) => {
       gsap.from(element, {
         scrollTrigger: {
           trigger: element,
@@ -297,14 +295,15 @@ const initGsapMotion = () => {
       });
     });
 
-    gsap.to(".hero", {
+    gsap.to(".hero__image", {
       scrollTrigger: {
         trigger: ".hero",
         start: "top top",
         end: "bottom top",
         scrub: true,
       },
-      backgroundPosition: "center 58%",
+      yPercent: 8,
+      scale: 1.05,
       ease: "none",
     });
 

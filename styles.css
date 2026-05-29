@@ -199,12 +199,17 @@ img {
   min-height: min(920px, 92vh);
   overflow: hidden;
   padding: 144px 0 64px;
-  background:
-    linear-gradient(90deg, rgba(9, 10, 11, 0.98) 0%, rgba(17, 15, 14, 0.92) 35%, rgba(17, 15, 14, 0.34) 68%, rgba(17, 15, 14, 0.08) 100%),
-    url("./assets/hero-tomato.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  background: #0d0d0c;
+}
+
+.hero__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  opacity: 0.95;
 }
 
 .hero::after {
@@ -225,8 +230,8 @@ img {
 
 .hero__overlay {
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.42)),
-    radial-gradient(circle at 76% 48%, rgba(217, 72, 50, 0.16), transparent 28%);
+    linear-gradient(90deg, rgba(7, 7, 7, 0.96) 0%, rgba(9, 9, 8, 0.82) 37%, rgba(9, 9, 8, 0.26) 70%, rgba(9, 9, 8, 0.08) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.34));
 }
 
 .hero__content {
@@ -1719,9 +1724,9 @@ img {
 }
 
 .page-shell:not(.subpage) .site-header {
-  height: 76px;
-  background: rgba(10, 10, 10, 0.68);
-  border-bottom-color: rgba(255, 255, 255, 0.08);
+  height: 82px;
+  background: linear-gradient(180deg, rgba(10, 10, 10, 0.82), rgba(10, 10, 10, 0.5));
+  border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
 .page-shell:not(.subpage) .brand-mark {
@@ -1730,27 +1735,31 @@ img {
 }
 
 .page-shell:not(.subpage) .site-nav {
-  gap: 12px;
-  padding: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.045);
+  gap: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .page-shell:not(.subpage) .site-nav a {
-  padding: 10px 13px;
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.7);
+  padding: 31px 0 28px;
+  border-radius: 0;
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .page-shell:not(.subpage) .site-nav a::after {
-  display: none;
+  display: block;
 }
 
 .page-shell:not(.subpage) .site-nav a:hover,
 .page-shell:not(.subpage) .site-nav a:focus-visible {
   color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
+}
+
+.page-shell:not(.subpage) .hero__side-ui {
+  display: none;
 }
 
 .page-shell:not(.subpage) .hero {
