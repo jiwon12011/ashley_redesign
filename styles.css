@@ -2014,9 +2014,20 @@ img {
 
 .signature-menu--modern .signature-menu__media {
   position: relative;
-  min-height: 620px;
+  align-self: stretch;
+  min-height: 560px;
   border: 0;
   box-shadow: none;
+}
+
+/* The spread photo is wide; absolutely fill the column so it never leaves a
+   dark gap below itself, cropping to a tall center slice via object-fit. */
+.signature-menu--modern .signature-menu__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .signature-menu__badge {
