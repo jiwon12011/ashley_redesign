@@ -1781,6 +1781,10 @@ img {
   box-shadow: none;
 }
 
+.events--modern .event-card--visual img {
+  object-position: left center;
+}
+
 .events--modern .event-card:hover,
 .events--modern .event-card:focus-within {
   transform: translateY(-2px);
