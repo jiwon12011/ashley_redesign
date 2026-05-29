@@ -242,3 +242,89 @@ const revealObserver = new IntersectionObserver(
 );
 
 revealElements.forEach((element) => revealObserver.observe(element));
+
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const initGsapMotion = () => {
+  if (prefersReducedMotion || !window.gsap) {
+    return;
+  }
+
+  const gsap = window.gsap;
+  const scrollTrigger = window.ScrollTrigger;
+
+  if (scrollTrigger) {
+    gsap.registerPlugin(scrollTrigger);
+  }
+
+  document.documentElement.classList.add("has-gsap");
+  revealElements.forEach((element) => element.classList.add("is-visible"));
+
+  gsap
+    .timeline({ defaults: { ease: "power3.out" } })
+    .from(".site-header", { y: -22, opacity: 0, duration: 0.7 })
+    .from(".hero-copy > *", { y: 38, opacity: 0, duration: 0.72, stagger: 0.08 }, "-=0.34")
+    .from(".hero-pagination", { x: 26, opacity: 0, duration: 0.65 }, "-=0.42")
+    .from(".scroll-indicator", { y: -10, opacity: 0, duration: 0.55 }, "-=0.28");
+
+  if (scrollTrigger) {
+    gsap.utils.toArray(".section__heading--modern, .benefit-teaser, .notice").forEach((element) => {
+      gsap.from(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: "top 82%",
+        },
+        y: 36,
+        opacity: 0,
+        duration: 0.78,
+        ease: "power3.out",
+      });
+    });
+
+    gsap.utils.toArray(".visit-flow__grid, .event-grid, .signature-menu__list").forEach((group) => {
+      const items = group.children;
+
+      gsap.from(items, {
+        scrollTrigger: {
+          trigger: group,
+          start: "top 78%",
+        },
+        y: 42,
+        opacity: 0,
+        duration: 0.72,
+        stagger: 0.08,
+        ease: "power3.out",
+      });
+    });
+
+    gsap.to(".hero", {
+      scrollTrigger: {
+        trigger: ".hero",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+      backgroundPosition: "center 58%",
+      ease: "none",
+    });
+
+    gsap.utils.toArray(".event-card--visual img, .signature-menu__media img").forEach((image) => {
+      gsap.fromTo(
+        image,
+        { scale: 1.04 },
+        {
+          scale: 1,
+          scrollTrigger: {
+            trigger: image,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+          ease: "none",
+        },
+      );
+    });
+  }
+};
+
+window.addEventListener("load", initGsapMotion);
