@@ -1800,12 +1800,12 @@ html:not(.has-gsap) .hero-copy > * {
 }
 
 .page-shell:not(.subpage) .hero {
-  min-height: min(890px, 92vh);
-  padding-top: 150px;
+  min-height: min(900px, 94vh);
+  padding-top: 184px;
 }
 
 .page-shell:not(.subpage) .hero__content {
-  min-height: min(660px, calc(92vh - 214px));
+  min-height: min(620px, calc(94vh - 248px));
 }
 
 .page-shell:not(.subpage) .hero-copy h1 {
