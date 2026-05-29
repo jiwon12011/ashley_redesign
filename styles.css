@@ -1794,10 +1794,10 @@ img {
 }
 
 .page-shell:not(.subpage) .hero-copy h1 {
-  font-family: var(--font-sans);
-  font-size: clamp(4.3rem, 8vw, 7.4rem);
-  line-height: 0.88;
-  font-weight: 900;
+  font-family: var(--font-serif);
+  font-size: clamp(4.4rem, 8vw, 7.6rem);
+  line-height: 0.94;
+  font-weight: 700;
 }
 
 .page-shell:not(.subpage) .hero-copy__description {
