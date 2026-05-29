@@ -96,10 +96,17 @@ img {
   background: linear-gradient(180deg, rgba(13, 12, 11, 0.88), rgba(13, 12, 11, 0.58));
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
+  transition:
+    background 320ms ease,
+    box-shadow 320ms ease,
+    border-color 320ms ease;
 }
 
-.site-header--solid {
-  background: rgba(14, 13, 12, 0.9);
+.site-header--solid,
+.page-shell:not(.subpage) .site-header--solid {
+  background: rgba(12, 11, 10, 0.94);
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.32);
 }
 
 .brand-mark {
@@ -342,6 +349,15 @@ img {
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
 }
 
+.button strong {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.button:hover strong,
+.button:focus-visible strong {
+  transform: translateX(5px);
+}
+
 .button--primary {
   color: #fff;
   background: var(--accent);
@@ -456,8 +472,26 @@ img {
 .scroll-indicator::after {
   content: "";
   width: 1px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.54);
+  height: 38px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.9) 26%,
+      rgba(255, 255, 255, 0.16) 26%,
+      rgba(255, 255, 255, 0.16) 100%
+    );
+  background-size: 100% 320%;
+  animation: scroll-cue 1.9s cubic-bezier(0.7, 0, 0.3, 1) infinite;
+}
+
+@keyframes scroll-cue {
+  0% {
+    background-position: 0 -100%;
+  }
+  100% {
+    background-position: 0 130%;
+  }
 }
 
 .section {
@@ -1111,8 +1145,27 @@ img {
   height: 38px;
   display: grid;
   place-items: center;
+  color: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 50%;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease,
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+.social-links a svg {
+  width: 18px;
+  height: 18px;
+}
+
+.social-links a:hover,
+.social-links a:focus-visible {
+  color: #fff;
+  border-color: rgba(216, 180, 109, 0.6);
+  background: rgba(216, 180, 109, 0.12);
+  transform: translateY(-2px);
 }
 
 .site-footer__bottom {
@@ -1664,16 +1717,19 @@ img {
 
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
+  transform: translateY(30px) scale(0.986);
+  filter: blur(4px);
   transition:
-    opacity 680ms ease,
-    transform 680ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 720ms ease,
+    transform 860ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 640ms ease;
   transition-delay: var(--reveal-delay, 0ms);
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  filter: none;
 }
 
 .hero-copy > * {
@@ -1818,21 +1874,78 @@ img {
 }
 
 .home-panel .flow-card {
+  position: relative;
   min-height: 250px;
   padding: 30px;
-  border-color: rgba(32, 26, 23, 0.1);
-  background: #fffaf2;
-  box-shadow: none;
+  border-color: rgba(32, 26, 23, 0.12);
+  background: linear-gradient(165deg, #fffdf9 0%, #f3eee3 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+}
+
+.home-panel .flow-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .home-panel .flow-card:hover,
 .home-panel .flow-card:focus-visible {
   transform: translateY(-6px);
-  box-shadow: 0 18px 42px rgba(32, 26, 23, 0.12);
+  border-color: rgba(217, 72, 50, 0.32);
+  box-shadow: 0 22px 48px rgba(32, 26, 23, 0.16);
+}
+
+.home-panel .flow-card:hover::before,
+.home-panel .flow-card:focus-visible::before {
+  transform: scaleY(1);
 }
 
 .home-panel .flow-card:nth-child(2) {
-  background: #fffaf2;
+  background: linear-gradient(165deg, #fffdf9 0%, #f3eee3 100%);
+}
+
+.flow-card__num {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.flow-card--accent .flow-card__num {
+  color: var(--accent-soft);
+}
+
+.flow-card__go {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.flow-card__go strong {
+  font-weight: 800;
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flow-card:hover .flow-card__go strong,
+.flow-card:focus-visible .flow-card__go strong {
+  transform: translateX(6px);
+}
+
+.flow-card--accent .flow-card__go {
+  color: var(--accent-soft);
 }
 
 .home-panel .flow-card--accent {

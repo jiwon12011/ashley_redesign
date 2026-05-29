@@ -224,12 +224,16 @@ revealElements.forEach((element, index) => {
   element.style.setProperty("--reveal-delay", `${Math.min(index * 60, 240)}ms`);
 });
 
+const showReveal = (element) => {
+  element.classList.add("is-visible");
+  revealObserver.unobserve(element);
+};
+
 const revealObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        revealObserver.unobserve(entry.target);
+        showReveal(entry.target);
       }
     });
   },
@@ -241,8 +245,62 @@ const revealObserver = new IntersectionObserver(
 
 revealElements.forEach((element) => revealObserver.observe(element));
 
+// Safety net: the IntersectionObserver can miss elements that are skipped over by
+// an instant anchor jump (the pagination dots and SCROLL cue jump to #event/#brand).
+// On every scroll/resize/load, reveal anything already at or above the viewport so
+// nothing can stay stuck invisible regardless of how the user moves through the page.
+const revealElementsInView = () => {
+  const triggerLine = window.innerHeight * 0.92;
+  revealElements.forEach((element) => {
+    if (element.classList.contains("is-visible")) {
+      return;
+    }
+    if (element.getBoundingClientRect().top < triggerLine) {
+      showReveal(element);
+    }
+  });
+};
+
+let revealFrame = 0;
+const scheduleRevealCheck = () => {
+  if (revealFrame) {
+    return;
+  }
+  revealFrame = window.requestAnimationFrame(() => {
+    revealFrame = 0;
+    revealElementsInView();
+  });
+};
+
+window.addEventListener("scroll", scheduleRevealCheck, { passive: true });
+window.addEventListener("resize", scheduleRevealCheck, { passive: true });
+window.addEventListener("load", revealElementsInView);
+// Browsers pause CSS transitions on background tabs, so an element marked while
+// hidden can sit in its pre-reveal state. Re-check once the tab becomes visible.
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    revealElementsInView();
+  }
+});
+revealElementsInView();
+
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Solidify the header once the page is scrolled past the hero top.
+const siteHeader = document.querySelector(".site-header");
+
+if (siteHeader) {
+  const updateHeaderState = () => {
+    siteHeader.classList.toggle("site-header--solid", window.scrollY > 24);
+  };
+
+  updateHeaderState();
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+}
+
+// GSAP is a progressive enhancement layer only. Content visibility is owned by
+// the CSS reveal + IntersectionObserver above, so a missing/blocked GSAP CDN or
+// a ScrollTrigger that never fires can never leave content stuck invisible.
 const initGsapMotion = () => {
   if (prefersReducedMotion || !window.gsap) {
     return;
@@ -251,79 +309,49 @@ const initGsapMotion = () => {
   const gsap = window.gsap;
   const scrollTrigger = window.ScrollTrigger;
 
-  if (scrollTrigger) {
-    gsap.registerPlugin(scrollTrigger);
+  document.documentElement.classList.add("has-gsap");
+
+  if (!scrollTrigger) {
+    return;
   }
 
-  document.documentElement.classList.add("has-gsap");
-  revealElements.forEach((element) => element.classList.add("is-visible"));
+  gsap.registerPlugin(scrollTrigger);
 
-  gsap
-    .timeline({ defaults: { ease: "power3.out" } })
-    .from(".site-header", { y: -22, opacity: 0, duration: 0.7 })
-    .from(".hero-copy > *", { y: 38, opacity: 0, duration: 0.72, stagger: 0.08 }, "-=0.34")
-    .from(".hero-pagination", { x: 26, opacity: 0, duration: 0.65 }, "-=0.42")
-    .from(".scroll-indicator", { y: -10, opacity: 0, duration: 0.55 }, "-=0.28");
+  // Depth: the hero image drifts and scales gently as the hero scrolls away.
+  gsap.to(".hero__image", {
+    yPercent: 12,
+    scale: 1.08,
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".hero",
+      start: "top top",
+      end: "bottom top",
+      scrub: true,
+    },
+  });
 
-  if (scrollTrigger) {
-    gsap.utils.toArray(".section__heading--modern, .notice").forEach((element) => {
-      gsap.from(element, {
-        scrollTrigger: {
-          trigger: element,
-          start: "top 82%",
-        },
-        y: 36,
-        opacity: 0,
-        duration: 0.78,
-        ease: "power3.out",
-      });
-    });
-
-    gsap.utils.toArray(".visit-flow__grid, .event-grid, .signature-menu__list").forEach((group) => {
-      const items = group.children;
-
-      gsap.from(items, {
-        scrollTrigger: {
-          trigger: group,
-          start: "top 78%",
-        },
-        y: 42,
-        opacity: 0,
-        duration: 0.72,
-        stagger: 0.08,
-        ease: "power3.out",
-      });
-    });
-
-    gsap.to(".hero__image", {
-      scrollTrigger: {
-        trigger: ".hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-      yPercent: 8,
-      scale: 1.05,
-      ease: "none",
-    });
-
-    gsap.utils.toArray(".event-card--visual img, .signature-menu__media img").forEach((image) => {
+  // Subtle parallax on large imagery — scale only, so nothing is ever hidden.
+  gsap.utils
+    .toArray(".event-card--visual img, .signature-menu__media img, .brand-story__backdrop img")
+    .forEach((image) => {
       gsap.fromTo(
         image,
-        { scale: 1.04 },
+        { scale: 1.09 },
         {
           scale: 1,
+          ease: "none",
           scrollTrigger: {
             trigger: image,
             start: "top bottom",
             end: "bottom top",
             scrub: true,
           },
-          ease: "none",
         },
       );
     });
-  }
+
+  // Recompute trigger positions once the heavy hero/section imagery has settled.
+  window.setTimeout(() => scrollTrigger.refresh(), 400);
 };
 
 window.addEventListener("load", initGsapMotion);
