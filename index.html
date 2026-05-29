@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ASHLEY | American Grill &amp; Salad</title>
-    <link rel="stylesheet" href="./styles.css?v=20260503e" />
+    <link rel="stylesheet" href="./styles.css?v=20260529a" />
   </head>
   <body>
     <div class="page-shell">
@@ -29,6 +29,7 @@
         <nav class="site-nav" id="site-nav" data-nav>
           <a href="./menu.html">MENU</a>
           <a href="./event.html">EVENT</a>
+          <a href="./benefit.html">BENEFIT</a>
           <a href="./store.html">STORE</a>
           <a href="./brand.html">BRAND</a>
           <a href="./reservation.html">RESERVATION</a>
@@ -81,6 +82,34 @@
           <a class="scroll-indicator" href="#event">SCROLL</a>
         </section>
 
+        <section class="section section--light visit-flow" aria-labelledby="visit-flow-title">
+          <div class="section__heading">
+            <div>
+              <p class="section__eyebrow">VISIT GUIDE</p>
+              <h2 id="visit-flow-title">오늘 방문을 더 쉽게</h2>
+              <p>메뉴와 혜택, 가까운 매장까지 한 번에 확인하고 바로 예약으로 이어지는 흐름을 만들었습니다.</p>
+            </div>
+          </div>
+
+          <div class="visit-flow__grid">
+            <a class="flow-card" href="./menu.html">
+              <span>01</span>
+              <h3>시즌 메뉴 보기</h3>
+              <p>토마토 시즌 메뉴와 그릴, 샐러드 대표 구성을 빠르게 확인하세요.</p>
+            </a>
+            <a class="flow-card" href="./benefit.html">
+              <span>02</span>
+              <h3>혜택 확인하기</h3>
+              <p>런치, 멤버십, 생일 혜택 등 방문 전에 챙기면 좋은 정보를 모았습니다.</p>
+            </a>
+            <a class="flow-card flow-card--accent" href="./reservation.html">
+              <span>03</span>
+              <h3>예약하고 방문</h3>
+              <p>매장과 시간을 고르고 기다림을 줄인 여유로운 식사를 준비하세요.</p>
+            </a>
+          </div>
+        </section>
+
         <section class="section section--light events" id="event">
           <div class="section__heading">
             <div>
@@ -93,7 +122,7 @@
           <div class="event-grid">
             <article class="event-card event-card--large event-card--visual event-card--poster">
               <a class="event-card__image-link" href="./event.html" aria-label="소방공무원 및 간호사 런치가격 이벤트">
-                <img src="./assets/event-firefighter-nurse-gen.png?v=illustration" alt="" />
+                <img src="./assets/banner_lunch.png" alt="" />
               </a>
             </article>
 
@@ -110,8 +139,8 @@
             </article>
 
             <article class="event-card event-card--visual">
-              <a class="event-card__image-link" href="./event.html" aria-label="애슐리 잔망루피 스페셜 기프트 이벤트">
-                <img src="./assets/event-loopy-unified.png" alt="" />
+              <a class="event-card__image-link" href="./event.html" aria-label="애슐리 차 이벤트">
+                <img src="./assets/banner_cha.png" alt="" />
               </a>
             </article>
 
@@ -120,6 +149,34 @@
                 <img src="./assets/event-spring-unified.png" alt="" />
               </a>
             </article>
+          </div>
+        </section>
+
+        <section class="section signature-menu" id="menu-spotlight">
+          <div class="signature-menu__media">
+            <img src="./assets/hero-tomato.png" alt="토마토 시즌 메뉴" />
+          </div>
+          <div class="signature-menu__copy">
+            <p class="section__eyebrow">SEASON TABLE</p>
+            <h2>가볍게 시작해서<br />든든하게 마무리</h2>
+            <p>
+              산뜻한 토마토 메뉴, 그릴 스테이크, 디저트 바까지 한 테이블에서 이어지는 애슐리의 시즌 다이닝입니다.
+            </p>
+            <div class="signature-menu__list">
+              <article>
+                <span>Fresh</span>
+                <strong>샐러드 &amp; 토핑</strong>
+              </article>
+              <article>
+                <span>Grill</span>
+                <strong>스테이크 &amp; 핫디시</strong>
+              </article>
+              <article>
+                <span>Sweet</span>
+                <strong>디저트 &amp; 음료</strong>
+              </article>
+            </div>
+            <a class="button button--primary" href="./menu.html"><span>전체 메뉴 보기</span><strong aria-hidden="true">→</strong></a>
           </div>
         </section>
 
@@ -166,6 +223,20 @@
             <button class="is-active" type="button" data-brand-page="0" aria-label="브랜드 스토리 이미지 1"></button>
             <button type="button" data-brand-page="1" aria-label="브랜드 스토리 이미지 2"></button>
           </div>
+        </section>
+
+        <section class="section section--light benefit-teaser">
+          <div>
+            <p class="section__eyebrow">MEMBERSHIP</p>
+            <h2>방문할수록 더해지는 혜택</h2>
+            <p>첫 방문 쿠폰부터 생일 혜택, 런치 프로모션까지 애슐리 방문 전에 챙길 수 있는 혜택을 정리했습니다.</p>
+          </div>
+          <div class="benefit-teaser__perks">
+            <span>런치 혜택</span>
+            <span>생일 쿠폰</span>
+            <span>멤버십 적립</span>
+          </div>
+          <a class="button button--outline" href="./benefit.html"><span>혜택 보기</span><strong aria-hidden="true">→</strong></a>
         </section>
 
         <section class="section section--light notice" id="store">
@@ -231,6 +302,7 @@
           </a>
           <nav class="footer-links">
             <a href="./brand.html">회사소개</a>
+            <a href="./benefit.html">멤버십 혜택</a>
             <a href="#">이용약관</a>
             <a href="#">개인정보처리방침</a>
             <a href="./store.html">고객센터</a>
@@ -273,6 +345,6 @@
       </footer>
     </div>
 
-    <script src="./script.js?v=20260503e"></script>
+    <script src="./script.js?v=20260529a"></script>
   </body>
 </html>
