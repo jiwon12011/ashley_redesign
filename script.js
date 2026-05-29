@@ -317,10 +317,12 @@ const initGsapMotion = () => {
 
   gsap.registerPlugin(scrollTrigger);
 
-  // Depth: the hero image drifts and scales gently as the hero scrolls away.
+  // Depth: the hero (a full-bleed cover background) drifts gently as it scrolls
+  // away. Content imagery is intentionally NOT scaled — upscaling a raster image
+  // softens and crops it, so event/signature/brand photos stay pixel-crisp.
   gsap.to(".hero__image", {
-    yPercent: 12,
-    scale: 1.08,
+    yPercent: 8,
+    scale: 1.05,
     ease: "none",
     scrollTrigger: {
       trigger: ".hero",
@@ -330,27 +332,7 @@ const initGsapMotion = () => {
     },
   });
 
-  // Subtle parallax on large imagery — scale only, so nothing is ever hidden.
-  gsap.utils
-    .toArray(".event-card--visual img, .signature-menu__media img, .brand-story__backdrop img")
-    .forEach((image) => {
-      gsap.fromTo(
-        image,
-        { scale: 1.09 },
-        {
-          scale: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: image,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
-      );
-    });
-
-  // Recompute trigger positions once the heavy hero/section imagery has settled.
+  // Recompute trigger positions once the heavy hero imagery has settled.
   window.setTimeout(() => scrollTrigger.refresh(), 400);
 };
 
